@@ -1,8 +1,9 @@
-import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import React, { Component } from "react";
+import { ScrollView, View, StyleSheet, Text } from "react-native";
 import { Button } from "antd-mobile-rn";
+import { Icon } from "expo";
 
-export default class AlarmScreen extends React.Component {
+export default class AlarmScreen extends Component {
   static navigationOptions = {
     title: "Alarm"
   };
@@ -10,7 +11,13 @@ export default class AlarmScreen extends React.Component {
   render() {
     return (
       <ScrollView style={styles.container}>
-        <Button>Stop</Button>
+        <View style={styles.welcomeContainer}>
+          <Icon.AntDesign name="clockcircleo" size={70} />
+          <Text style={styles.alarmText}>
+            Get up and go to the washroom to stop the alarm!
+          </Text>
+          <Button>Snooze for 10 Minutes</Button>
+        </View>
       </ScrollView>
     );
   }
@@ -21,5 +28,23 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 15,
     backgroundColor: "#fff"
+  },
+  welcomeContainer: {
+    alignItems: "center",
+    marginTop: 10,
+    marginBottom: 20
+  },
+  alarmText: {
+    fontSize: 35,
+    color: "rgba(96,100,109, 1)",
+    textAlign: "center",
+    marginTop: 30,
+    marginBottom: 50,
+    marginLeft: 20,
+    marginRight: 20
+  },
+  currentTime: {
+    fontSize: 76,
+    fontWeight: "200"
   }
 });
