@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  DatePickerIOS,
   Image,
   Platform,
   ScrollView,
@@ -10,7 +9,7 @@ import {
   Switch
 } from "react-native";
 
-import { Button, Picker } from "antd-mobile-rn";
+import { Button } from "antd-mobile-rn";
 import moment from "moment";
 import { WebBrowser } from "expo";
 
@@ -39,32 +38,24 @@ SwitchRow = ({ text }) => {
 
 export default class HomeScreen extends Component {
   static navigationOptions = {
-    header: null
-  };
-
-  state = {
-    chosenDate: new Date()
-  };
-
-  setDate = newDate => {
-    this.setState({ chosenDate: newDate });
+    title: "Home"
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
-      <ScrollView style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+      >
         <View>
           <Text style={styles.getStartedText}>Morning Tide</Text>
           <SwitchRow text="Alarm on/off" />
           <Text>Wake Up Time</Text>
           <Alarm time={DATA.time} />
-          <Button>Change</Button>
-          <DatePickerIOS
-            date={this.state.chosenDate}
-            onDateChange={this.setDate}
-          />
-          <SwitchRow text="Automatic Supply Purchase" />
-          <SwitchRow text="Reminder for the Morning" />
+          <Button onClick={() => navigate("TimePicker")}>Change</Button>
+          <SwitchRow text="Automatic Restock" />
+          <SwitchRow text="Morning Reminder" />
         </View>
       </ScrollView>
     );
@@ -114,7 +105,7 @@ const styles = StyleSheet.create({
   switchrow: {
     flexDirection: "row",
     alignSelf: "stretch",
-    justifyContent: "space-evenly",
+    justifyContent: "space-between",
     marginTop: 20,
     marginBottom: 20
   },

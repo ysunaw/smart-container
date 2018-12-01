@@ -9,9 +9,11 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import AlarmScreen from "../screens/AlarmScreen";
 import SettingsScreen from "../screens/SettingsScreen";
+import TimeScreen from "../screens/TimeScreen";
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen
+  Home: HomeScreen,
+  TimePicker: TimeScreen
 });
 
 HomeStack.navigationOptions = {
