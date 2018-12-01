@@ -10,6 +10,7 @@ import HomeScreen from "../screens/HomeScreen";
 import AlarmScreen from "../screens/AlarmScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import TimeScreen from "../screens/TimeScreen";
+import MorningScreen from "../screens/MorningScreen";
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
@@ -31,7 +32,8 @@ HomeStack.navigationOptions = {
 };
 
 const AlarmStack = createStackNavigator({
-  Alarm: AlarmScreen
+  Alarm: AlarmScreen,
+  Morning: MorningScreen
 });
 
 AlarmStack.navigationOptions = {

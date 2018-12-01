@@ -9,6 +9,7 @@ export default class AlarmScreen extends Component {
   };
 
   render() {
+    const { navigate } = this.props.navigation;
     return (
       <ScrollView style={styles.container}>
         <View style={styles.welcomeContainer}>
@@ -17,6 +18,7 @@ export default class AlarmScreen extends Component {
             Get up and go to the washroom to stop the alarm!
           </Text>
           <Button>Snooze for 10 Minutes</Button>
+          <Button onClick={() => navigate("Morning")}>I'm Awake</Button>
         </View>
       </ScrollView>
     );
