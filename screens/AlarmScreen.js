@@ -17,8 +17,10 @@ export default class AlarmScreen extends Component {
           <Text style={styles.alarmText}>
             Get up and go to the washroom to stop the alarm!
           </Text>
-          <Button>Snooze for 10 Minutes</Button>
-          <Button onClick={() => navigate("Morning")}>I'm Awake</Button>
+          {/* <Button>Snooze for 10 Minutes</Button> */}
+          <Button onClick={() => navigate("Morning")}>
+            Snooze for 10 Minutes
+          </Button>
         </View>
       </ScrollView>
     );

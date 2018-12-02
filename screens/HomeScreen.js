@@ -11,20 +11,10 @@ import {
 
 import { Button } from "antd-mobile-rn";
 import moment from "moment";
-import { WebBrowser } from "expo";
-
-const DATA = {
-  time: 1234567,
-  message: "This is you wake up message"
-};
 
 Alarm = ({ time }) => {
-  const duration = moment.duration(time);
-  return (
-    <Text style={styles.alarm}>
-      {duration.minutes()}:{duration.seconds()}
-    </Text>
-  );
+  const duration = moment(time);
+  return <Text style={styles.alarm}>{duration.format("hh:mm A")}</Text>;
 };
 
 SwitchRow = ({ text }) => {
@@ -41,6 +31,15 @@ export default class HomeScreen extends Component {
     title: "Home"
   };
 
+  state = {
+    chosenTime: new Date(),
+    message: "This is you wake up message"
+  };
+
+  saveDate = newTime => {
+    this.setState({ chosenTime: newTime });
+  };
+
   render() {
     const { navigate } = this.props.navigation;
     return (
@@ -50,28 +49,30 @@ export default class HomeScreen extends Component {
       >
         <View>
           <Text style={styles.getStartedText}>Morning Tide</Text>
+          <Image
+            source={require("../assets/images/tide.png")}
+            style={styles.welcomeImage}
+          />
+          <Text style={styles.timeText}>Wake Up Time</Text>
+          <Alarm time={this.state.chosenTime} />
+          <Button
+            onClick={() =>
+              navigate("TimePicker", {
+                date: this.state.chosenTime,
+                saveDate: this.saveDate
+              })
+            }
+            style={styles.button}
+          >
+            Change
+          </Button>
           <SwitchRow text="Alarm on/off" />
-          <Text>Wake Up Time</Text>
-          <Alarm time={DATA.time} />
-          <Button onClick={() => navigate("TimePicker")}>Change</Button>
           <SwitchRow text="Automatic Restock" />
           <SwitchRow text="Morning Reminder" />
         </View>
       </ScrollView>
     );
   }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    );
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    );
-  };
 }
 
 const styles = StyleSheet.create({
@@ -92,12 +93,17 @@ const styles = StyleSheet.create({
     width: 100,
     height: 80,
     resizeMode: "contain",
-    marginTop: 3,
-    marginLeft: -10
+    alignSelf: "center"
   },
-  getStartedContainer: {
-    alignItems: "center",
-    marginHorizontal: 50
+  getStartedText: {
+    fontSize: 40,
+    fontWeight: "200",
+    alignSelf: "center"
+  },
+  timeText: {
+    fontSize: 20,
+    marginTop: 30,
+    alignSelf: "center"
   },
   homeScreenFilename: {
     marginVertical: 7
@@ -112,5 +118,8 @@ const styles = StyleSheet.create({
   alarm: {
     fontSize: 76,
     fontWeight: "200"
+  },
+  button: {
+    marginBottom: 30
   }
 });

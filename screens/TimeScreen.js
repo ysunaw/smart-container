@@ -1,18 +1,27 @@
 import React, { Component } from "react";
-import { Button, DatePickerIOS, Text, View } from "react-native";
+import { Button, DatePickerIOS, View } from "react-native";
 
 export default class TimeScreen extends Component {
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title: "Change Wakeup Time",
-    headerRight: <Button title="Save" onPress={() => console.log("pressed")} />
-  };
+    headerRight: (
+      <Button
+        title="Save"
+        onPress={() => {
+          navigation.getParam("saveDate")(navigation.getParam("date"));
+          navigation.goBack();
+        }}
+      />
+    )
+  });
 
   state = {
-    chosenDate: new Date()
+    chosenDate: this.props.navigation.getParam("date")
   };
 
   setDate = newDate => {
     this.setState({ chosenDate: newDate });
+    this.props.navigation.setParams({ date: newDate });
   };
 
   render() {
@@ -23,7 +32,6 @@ export default class TimeScreen extends Component {
           date={this.state.chosenDate}
           onDateChange={this.setDate}
         />
-        <Text>{this.state.chosenDate.toLocaleTimeString()}</Text>
       </View>
     );
   }
